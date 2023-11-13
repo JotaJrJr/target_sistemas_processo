@@ -3,6 +3,7 @@ import 'package:target_sistemas_prova/common/features/cadastro_texto/view/cadast
 import 'package:target_sistemas_prova/common/features/listar_texto/view/listar_text_page.dart';
 import 'package:target_sistemas_prova/common/features/login/viewmodel/login_view_model.dart';
 import 'package:target_sistemas_prova/common/features/login/widgets/text_field_widget.dart';
+import 'package:target_sistemas_prova/common/widgets/politica_privacidade_widget.dart';
 
 class LoginPage extends StatefulWidget {
   final LoginViewModel? viewModel;
@@ -118,21 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 40,
-                ),
-                child: InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "Política de Privacidade",
-                    style: TextStyle(
-                      color: Colors.white,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ),
+              const PoliticaPrivacidadeWidget()
             ],
           ),
         ),

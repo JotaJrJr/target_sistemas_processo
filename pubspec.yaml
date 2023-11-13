@@ -38,6 +38,9 @@ dependencies:
   shared_preferences: ^2.2.2
   mobx: ^2.2.1
   uuid: ^4.2.1
+  build_runner: ^2.4.6
+  url_launcher: ^6.2.1
+  webview_flutter: ^4.4.2
 
 dev_dependencies:
   flutter_test:

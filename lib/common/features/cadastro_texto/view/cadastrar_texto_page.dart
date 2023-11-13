@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:target_sistemas_prova/common/database/services/service_nota_impl.dart';
 import 'package:target_sistemas_prova/common/features/cadastro_texto/viewmodel/cadastrar_text_view_model.dart';
 import 'package:target_sistemas_prova/common/models/note_model.dart';
+import 'package:target_sistemas_prova/common/widgets/politica_privacidade_widget.dart';
 
 class CadastrarTextoPage extends StatefulWidget {
   final NoteModel? model;
@@ -153,21 +154,7 @@ class _CadastrarTextoPageState extends State<CadastrarTextoPage> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 40,
-                ),
-                child: InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "Política de Privacidade",
-                    style: TextStyle(
-                      color: Colors.white,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ),
+              PoliticaPrivacidadeWidget(),
             ],
           ),
         ),
