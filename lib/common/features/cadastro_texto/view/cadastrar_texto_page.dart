@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:target_sistemas_prova/common/database/services/service_nota_impl.dart';
 import 'package:target_sistemas_prova/common/features/cadastro_texto/viewmodel/cadastrar_text_view_model.dart';
 import 'package:target_sistemas_prova/common/models/note_model.dart';
@@ -70,29 +71,30 @@ class _CadastrarTextoPageState extends State<CadastrarTextoPage> {
                       ),
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              // const Spacer(),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: TextField(
-                                      textInputAction: TextInputAction.next,
-                                      controller: _viewModel.tituloController,
-                                      decoration: const InputDecoration(
-                                        hintText: "Título",
-                                        border: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        isDense: false,
+                          Observer(builder: (context) {
+                            return Row(
+                              children: [
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: TextField(
+                                        textInputAction: TextInputAction.next,
+                                        controller: _viewModel.tituloController,
+                                        decoration: const InputDecoration(
+                                          hintText: "Título",
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          isDense: false,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            );
+                          }),
                           const Divider(
                             endIndent: 10,
                             indent: 10,
@@ -154,7 +156,7 @@ class _CadastrarTextoPageState extends State<CadastrarTextoPage> {
                   ],
                 ),
               ),
-              PoliticaPrivacidadeWidget(),
+              const PoliticaPrivacidadeWidget(),
             ],
           ),
         ),
