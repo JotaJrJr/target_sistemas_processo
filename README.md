@@ -1,16 +1,13 @@
 # target_sistemas_prova
 
-A new Flutter project.
-
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Projeto criado para processo seletivo na Target Sistemas
 
-A few resources to get you started if this is your first Flutter project:
+Foi usado padrão de projeto MVVM, arquitetura Clean para acessar o banco de dados no Shared_Preferences.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Utilizando Mobx para gerência de estado.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+- [Linkedin](https://www.linkedin.com/in/joão-antônio-silva-989776159/)
