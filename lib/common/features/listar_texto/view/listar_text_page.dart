@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:target_sistemas_prova/common/database/services/service_nota_impl.dart';
 import 'package:target_sistemas_prova/common/features/cadastro_texto/view/cadastrar_texto_page.dart';
 import 'package:target_sistemas_prova/common/features/editar_text/view/editar_text_page.dart';
 import 'package:target_sistemas_prova/common/features/listar_texto/viewmodel/listar_text_view_model.dart';
@@ -20,8 +22,8 @@ class _ListarTextoPageState extends State<ListarTextoPage> {
 
   @override
   void initState() {
-    _viewModel = widget.viewModel ?? ListarTextViewModel();
-    _viewModel.getNotes();
+    _viewModel = widget.viewModel ?? ListarTextViewModel(service: ServiceNotaImpl());
+    _viewModel.getNotas();
     super.initState();
   }
 
@@ -63,42 +65,42 @@ class _ListarTextoPageState extends State<ListarTextoPage> {
             end: FractionalOffset.bottomCenter,
           ),
         ),
-        child: AnimatedBuilder(
-            animation: _viewModel,
-            builder: (_, __) {
-              return ListView.builder(
-                itemCount: _viewModel.notes.length,
-                itemBuilder: (_, index) {
-                  final note = _viewModel.notes[index];
-                  return ListTile(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditarTextoPage(model: note))).then((value) {
-                        _viewModel.getNotes();
-                      });
-                    },
-                    title: Text(
-                      "ID: ${note.id.toString()}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
+        child: Observer(
+          builder: (context) {
+            return ListView.builder(
+              itemCount: _viewModel.notes.length,
+              itemBuilder: (_, index) {
+                final note = _viewModel.notes[index];
+                return ListTile(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => EditarTextoPage(model: note))).then((value) {
+                      _viewModel.getNotas();
+                    });
+                  },
+                  title: Text(
+                    "ID: ${note.id.toString()}",
+                    style: const TextStyle(
+                      color: Colors.white,
                     ),
-                    subtitle: Text(
-                      "Título: ${note.title}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
+                  ),
+                  subtitle: Text(
+                    "Título: ${note.title}",
+                    style: const TextStyle(
+                      color: Colors.white,
                     ),
-                  );
-                },
-              );
-            }),
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
 
   void _navigateToCadastrarTextoPage() async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const CadastrarTextoPage())).then((value) {
-      _viewModel.getNotes();
+      _viewModel.getNotas();
     });
   }
 }

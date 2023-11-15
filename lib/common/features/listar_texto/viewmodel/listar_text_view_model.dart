@@ -1,19 +1,22 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobx/mobx.dart';
+import 'package:target_sistemas_prova/common/database/services/service_nota_impl.dart';
 import 'package:target_sistemas_prova/common/models/note_model.dart';
 
-class ListarTextViewModel extends ChangeNotifier {
-  List<NoteModel> notes = [];
+part 'listar_text_view_model.g.dart';
 
-  Future<void> getNotes() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final notesData = prefs.getString('notes');
-    if (notesData != null) {
-      final List<dynamic> notesList = json.decode(notesData);
-      notes = notesList.map((note) => NoteModel.fromMap(note)).toList();
-    }
-    notifyListeners();
+class ListarTextViewModel = _ListarTextViewModel with _$ListarTextViewModel;
+
+abstract class _ListarTextViewModel with Store {
+  final ServiceNotaImpl service;
+
+  _ListarTextViewModel({required this.service});
+
+  @observable
+  ObservableList<NoteModel> notes = ObservableList<NoteModel>.of([]);
+
+  @action
+  Future<void> getNotas() async {
+    notes.clear();
+    notes.addAll(await service.getNotas());
   }
 }

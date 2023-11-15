@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:target_sistemas_prova/common/database/services/service_nota_impl.dart';
 import 'package:target_sistemas_prova/common/features/cadastro_texto/viewmodel/cadastrar_text_view_model.dart';
+import 'package:target_sistemas_prova/common/features/listar_texto/viewmodel/listar_text_view_model.dart';
 import 'package:target_sistemas_prova/common/models/note_model.dart';
 import 'package:target_sistemas_prova/common/widgets/politica_privacidade_widget.dart';
 
 class CadastrarTextoPage extends StatefulWidget {
   final NoteModel? model;
 
+  final ListarTextViewModel? listarTextViewModel;
+
   final CadastrarTextoViewModel? viewModel;
 
-  const CadastrarTextoPage({super.key, this.viewModel, this.model});
+  const CadastrarTextoPage({super.key, this.viewModel, this.model, this.listarTextViewModel});
 
   @override
   State<CadastrarTextoPage> createState() => _CadastrarTextoPageState();
@@ -21,8 +23,8 @@ class _CadastrarTextoPageState extends State<CadastrarTextoPage> {
 
   @override
   void initState() {
-    _viewModel = widget.viewModel ?? CadastrarTextoViewModel(service: ServiceNotaImpl());
     super.initState();
+    _viewModel = widget.viewModel ?? CadastrarTextoViewModel(service: ServiceNotaImpl());
   }
 
   @override
@@ -71,30 +73,28 @@ class _CadastrarTextoPageState extends State<CadastrarTextoPage> {
                       ),
                       child: Column(
                         children: [
-                          Observer(builder: (context) {
-                            return Row(
-                              children: [
-                                Expanded(
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: TextField(
-                                        textInputAction: TextInputAction.next,
-                                        controller: _viewModel.tituloController,
-                                        decoration: const InputDecoration(
-                                          hintText: "Título",
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          isDense: false,
-                                        ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: TextField(
+                                      textInputAction: TextInputAction.next,
+                                      controller: _viewModel.tituloController,
+                                      decoration: const InputDecoration(
+                                        hintText: "Título",
+                                        border: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        isDense: false,
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
-                            );
-                          }),
+                              ),
+                            ],
+                          ),
                           const Divider(
                             endIndent: 10,
                             indent: 10,
@@ -103,9 +103,10 @@ class _CadastrarTextoPageState extends State<CadastrarTextoPage> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextField(
-                              onSubmitted: (value) {
+                              onSubmitted: (value) async {
                                 if (_viewModel.canSave()) {
-                                  _viewModel.salvarNota();
+                                  await _viewModel.salvarNota();
+                                  await widget.listarTextViewModel?.getNotas();
                                   Navigator.pop(context);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(

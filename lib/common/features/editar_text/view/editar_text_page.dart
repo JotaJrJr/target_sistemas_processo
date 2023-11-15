@@ -93,10 +93,7 @@ class _EditarTextoPageState extends State<EditarTextoPage> {
                                 ),
                               ),
                               InkWell(
-                                // onTap: () => _viewModel.delete(widget.model.id!).then((value) => Navigator.pop(context)),
-
                                 onTap: () => _showDeleteDialog(),
-
                                 child: const CircleAvatar(
                                   radius: 16,
                                   backgroundColor: Colors.red,

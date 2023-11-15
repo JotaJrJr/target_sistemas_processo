@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:target_sistemas_prova/common/database/services/service_nota_impl.dart';
 import 'package:target_sistemas_prova/common/models/note_model.dart';
 
